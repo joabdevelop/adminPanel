@@ -1,0 +1,398 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+:root {
+    --color-table-header: #2b7e4b;
+    --color-content-header-bg: #1e2b4b;
+    --color-navigation-bg: #1e2b4b;
+    --bs-body-font-family: 'Inter', sans-serif;
+    --bs-body-font-family: 'Inter', sans-serif;
+    --bs-body-bg: #f5f7f8;
+    --bs-border-radius: 0.5rem;
+    /* border-radius-lg */
+    --bs-border-radius-xl: 0.75rem;
+    /* border-radius-xl */
+}
+
+body {
+    /* background: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    font-family: Verdana;
+    height: 100%;
+    margin: 0;
+    padding: 0; */
+
+    background: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+    /* AQUI! Use 'Fira Sans' primeiro, seguido de uma fonte genérica */
+    font-size: 16px;
+    /* Tamanho de fonte base para a aplicação */
+    line-height: 1.5;
+    /* Altura da linha para melhor legibilidade */
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* ======= Card Login ======= */
+.glass-card {
+    background-color: rgba(200, 200, 200, 0.4) ; 
+    backdrop-filter: blur(10px); 
+    border-radius: 1rem; 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ======= TOPBAR ======= */
+.topbar {
+    align-items: center;
+    background: linear-gradient(to right, var(--color-navigation-bg), #2b7e4b);
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 60px;
+    width: 100%;
+    left: 0;
+    padding: 0 20px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+}
+
+.topbar-brand {
+    align-items: center;
+    display: flex;
+    font-size: 18px;
+    font-weight: bold;
+    gap: 10px;
+}
+
+.topbar-brand span.logo-text {
+    color: #fff;
+}
+
+.logo-image {
+    display: block;
+    height: 26px;
+    width: auto;
+}
+
+.logo-icon {
+    color: #000;
+    font-size: 22px;
+}
+
+.topbar-controls {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.toggle {
+    background: none;
+    border: none;
+    color: rgb(0, 0, 0);
+    /* Cor do ícone */
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: 700;
+    /* Negrito para o ícone */
+}
+
+.user img {
+    border-radius: 50%;
+    height: 35px;
+}
+
+/* ======= SIDEBAR ======= */
+
+.navigation {
+    background-color: var(--color-navigation-bg);
+    height: calc(100vh - 60px);
+    left: 0;
+    position: fixed;
+    top: 60px;
+    transition: width 0.3s;
+    width: 60px;
+    /* Z-index para ficar abaixo do topbar */
+}
+
+.main-content {
+    margin-left: 60px;
+    transition: margin-left 0.3s;
+}
+
+.main-content.expanded {
+    margin-left: 250px;
+}
+
+.navigation:hover {
+    width: 250px;
+    overflow: hidden;
+}
+
+.menu {
+    list-style: none;
+    margin: 0;
+    margin-top: 20px;
+    padding: 0;
+}
+
+.menu li {
+    padding: 5px 10px;
+}
+
+.menu li a {
+    align-items: center;
+    border-radius: 4px;
+    color: #fff;
+    display: flex;
+    padding: 6px 10px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.menu li a:hover {
+    background-color: #2f4270;
+}
+
+.icon {
+    font-size: 20px;
+    margin-right: 5px;
+    text-align: center;
+    width: 30px;
+}
+
+.title {
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+}
+
+.navigation:hover .title {
+    font-size: 14px;
+    opacity: 1;
+    /* Garante que o título esteja visível por padrão */
+    transition: opacity 0.3s;
+    white-space: nowrap;
+    display: block;
+}
+
+/* ======= SUBMENU ======= */
+.submenu {
+    background-color: #263147;
+    list-style: none;
+    margin: 0;
+    /* Remova margens padrão da ul */
+    padding-left: 1px;
+    max-height: 0;
+    /* Oculta o submenu por padrão */
+    overflow: hidden;
+    /* Garante que o conteúdo extra seja cortado */
+    transition: max-height 0.3s ease-in-out;
+    /* Tempo de transição */
+}
+
+/* Adicionado: Classe 'active' para controlar a exibição via JS */
+.navigation .submenu.active {
+    max-height: 500px;
+    overflow: hidden;
+    /* Valor grande o suficiente para mostrar todo o submenu */
+}
+
+.submenu-item {
+    padding: 6px 0;
+}
+
+.submenu .title {
+    font-size: 13px;
+}
+
+/* Rotação do ícone de seta */
+.submenu-toggle-icon {
+    display: none;
+    transition: transform 0.3s ease-in-out;
+    margin-left: auto;
+    /* Empurra o ícone para a direita */
+    padding-left: 10px;
+    /* Adiciona um espaçamento à esquerda do ícone */
+}
+
+.submenu-toggle-icon.expanded {
+    display: flex;
+    border-color: #4ad489;
+}
+
+.menu-item.active .submenu-toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* ======= MAIN CONTENT ======= */
+.main-content {
+    max-width: 100%;
+    margin-top: 60px;
+    padding: 20px;
+    transition: margin-left 0.3s;
+}
+
+/* Este seletor é a chave para o comportamento de recolher o sidebar */
+.navigation.active~.main-content {
+    margin-left: 60px;
+    background-color: aqua;
+}
+
+/* ======= USUARIO ======= */
+
+/* Estilos para o contêiner do dropdown do usuário */
+.user-dropdown-container {
+    position: relative;
+    /* Essencial para posicionar o dropdown */
+    display: flex;
+    /* Para alinhar o ícone e o nome */
+    align-items: center;
+    cursor: pointer;
+    margin-left: 20px;
+    margin-right: 20px;
+    /* Espaço entre a pesquisa e o usuário */
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Espaço entre o ícone e o nome */
+    color: #ffffff;
+    /* Cor do texto do nome de usuário */
+    font-weight: 500;
+}
+
+.user-info ion-icon {
+    font-size: 28px;
+    /* Tamanho do ícone do usuário */
+    color: #d6d6d6d7;
+}
+
+.username {
+    /* Estilos para o nome de usuário */
+    white-space: nowrap;
+    /* Evita quebra de linha no nome */
+}
+
+/* Estilos para o menu dropdown */
+.user-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    /* Posiciona abaixo do user-info */
+    right: 0;
+    /* Alinha à direita do user-info */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 160px;
+    z-index: 1001;
+    /* Acima de outros elementos */
+    opacity: 0;
+    /* Começa invisível */
+    visibility: hidden;
+    /* Esconde completamente */
+    transform: translateY(10px);
+    /* Começa um pouco abaixo */
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out, visibility 0.2s;
+}
+
+.user-dropdown-menu.active {
+    opacity: 1;
+    /* Torna visível */
+    visibility: visible;
+    /* Torna visível */
+    transform: translateY(0);
+    /* Volta à posição original */
+}
+
+.user-dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-dropdown-menu li a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.user-dropdown-menu li a:hover {
+    background-color: #f0f0f0;
+}
+
+.user-dropdown-menu .logout-item a {
+    color: #e74c3c;
+    /* Cor para o link de logout */
+    font-weight: bold;
+}
+
+.user-dropdown-menu .logout-item a:hover {
+    background-color: #ffebeb;
+    /* Fundo mais claro ao passar o mouse */
+}
+
+/* === SPINNER === */
+
+.main-content {
+    position: relative;
+}
+
+.main-spinner {
+    position: fixed;          /* ✅ Fica presa na tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;           /* ✅ Altura total da tela */
+    background: rgba(0, 0, 0, 0.925);
+    backdrop-filter: blur(2px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.main-spinner .loader {
+    width: 50px;
+    height: 50px;
+    border: 8px solid #2b7e4b !important;
+    border-top: 8px solid #1e2b4b !important;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.main-spinner span {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff !important;
+}
+
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
