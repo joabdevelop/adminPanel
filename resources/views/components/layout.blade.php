@@ -64,6 +64,13 @@
 
             </div>
         </div>
+        
+        <!--
+            ** Carga dos itens do Menu **
+            Melhor ser criado como um Service, retirando essa carga do arquivo blade,
+            onde pode ser filtrado de acordo com o perfil do usuario
+            ou outras regras de negócio.
+        -->
         @php
             $menuItems = collect(config('adminpanel.menu'));
         @endphp
